@@ -1,0 +1,7 @@
+name: CraftRestrictor
+version: '${project.version}'
+main: osaka.peg.craftrestrictor.CraftRestrictor
+api-version: 1.15
+prefix: CraftRestrictor
+authors: [ mk499490 ]
+description: Restrict crafting specific receipes, enchantments and/or repairments

@@ -1,0 +1,5 @@
+# Specify the map ID(s) you want to prevent from duplication
+RestrictedMaps:
+  - 0
+  - 100
+  - 1000
