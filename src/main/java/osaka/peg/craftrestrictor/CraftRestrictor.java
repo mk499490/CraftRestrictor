@@ -1,6 +1,6 @@
 package osaka.peg.craftrestrictor;
 
-import osaka.peg.craftrestrictor.eventhandler.MapDuplicationRestrictor;
+import osaka.peg.craftrestrictor.restrictors.MapDuplicationRestrictor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CraftRestrictor extends JavaPlugin {

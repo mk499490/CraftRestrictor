@@ -1,4 +1,4 @@
-package osaka.peg.craftrestrictor.eventhandler;
+package osaka.peg.craftrestrictor.restrictors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,6 +31,7 @@ public class MapDuplicationRestrictor implements Listener {
 		}
 
 		// バリアブロックの生成（複製不可のアイコン）
+		// TODO: 複製不可のアイコンをカスタマイズできるように
 		restrictedIndicator = new ItemStack(Material.BARRIER);
 		ItemMeta restrictedIndicatorMeta = restrictedIndicator.getItemMeta();
 		restrictedIndicatorMeta.setDisplayName("§c§lこのマップは複製できません！");
@@ -41,7 +42,7 @@ public class MapDuplicationRestrictor implements Listener {
 		restrictedIndicator.setItemMeta(restrictedIndicatorMeta);
 	}
 
-	// TODO: 特定ユーザは複製防止をバイパスできるように
+	// 「craftrestrictor.bypass.map.<マップID>」でマップ複製禁止をバイパス可能
 
 	// 製図台用
 	@EventHandler
@@ -51,7 +52,7 @@ public class MapDuplicationRestrictor implements Listener {
 			Bukkit.getScheduler().runTaskLater(main, () -> {
 				try {
 					if (event.getInventory().getItem(0).getItemMeta() instanceof MapMeta && event.getInventory().getItem(1).getType().equals(Material.MAP)) {
-						if (restrictedMaps.contains(((MapMeta) event.getInventory().getItem(0).getItemMeta()).getMapId())) {
+						if (restrictedMaps.contains(((MapMeta) event.getInventory().getItem(0).getItemMeta()).getMapId()) && !(event.getWhoClicked().hasPermission("craftrestrictor.bypass.map." + ((MapMeta) event.getInventory().getItem(0).getItemMeta()).getMapId()))) {
 							event.getInventory().setItem(2, restrictedIndicator);
 						}
 					}
@@ -82,7 +83,7 @@ public class MapDuplicationRestrictor implements Listener {
 			return;
 		}
 		if (resultItemMeta instanceof MapMeta) {
-			if (restrictedMaps.contains(((MapMeta) resultItemMeta).getMapId())) {
+			if (restrictedMaps.contains(((MapMeta) resultItemMeta).getMapId()) && !(event.getViewers().get(0).hasPermission("craftrestrictor.bypass.map." + ((MapMeta) event.getInventory().getItem(0).getItemMeta()).getMapId()))) {
 				event.getInventory().setResult(restrictedIndicator);
 			}
 		}
