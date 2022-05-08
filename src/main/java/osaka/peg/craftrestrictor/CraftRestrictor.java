@@ -14,6 +14,6 @@ public final class CraftRestrictor extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		getServer().getLogger().info("Disabled");
+		this.getLogger().info("Disabled");
 	}
 }
